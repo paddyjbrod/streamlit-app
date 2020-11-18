@@ -25,7 +25,7 @@ from surprise import Reader, Dataset
 import pickle
 import json
 from surprise import KNNBasic
-from umap import plot
+
 import umap
 from bokeh.plotting import figure
 from PIL import Image
@@ -34,19 +34,19 @@ import webbrowser
 import random
 
 
-img=Image.open('C:/Users/pjb50/Downloads/flav.png')
+img=Image.open('data/flav.png')
 st.image(img, use_column_width=True)
 
 st.title("Flavor pairing recommendation system")
-with open('C:/Users/pjb50/Downloads/Capstone/word2vec1m.pkl', 'rb') as f:
+with open('data/word2vec1m.pkl', 'rb') as f:
     model = pickle.load(f)
-with open('C:/Users/pjb50/Downloads/Capstone/knnBASIC_pred2.pkl', 'rb',) as f:
+with open('data/knnBASIC_pred2.pkl', 'rb',) as f:
     predictions = pickle.load(f)
-dfflav=pd.read_csv('C:/Users/pjb50/Downloads/Capstone/falvor.tsv',sep='\t')
-dfpairs=pd.read_csv('C:/Users/pjb50/Downloads/Capstone/final_score') 
-hover_data=pd.read_csv('C:/Users/pjb50/Downloads/Capstone/umaphover.csv')
+dfflav=pd.read_csv('data/falvor.tsv',sep='\t')
+dfpairs=pd.read_csv('data/final_score') 
+hover_data=pd.read_csv('data/umaphover.csv')
 
-UMAP = pickle.load((open('C:/Users/pjb50/Downloads/Capstone/UMAPwrv.sav', 'rb')))
+UMAP = pickle.load((open('data/UMAPwrv.sav', 'rb')))
 x = st.text_input("Input an ingredient to see compatible ingredients:  ", "garlic")
 # Add a selectbox to the sidebar:
 
@@ -105,7 +105,7 @@ st.write("""
 
  ZOOM IN ON REGIONS TO EXPLORE
 """)
-st.write(""" **Check out our Tableau dash [link](https://example.com)** """)
+st.write(""" **Check out our Tableau dash [link](https://public.tableau.com/profile/patrick.joseph.broderick#!/vizhome/FLAVORMAP/Dashboard1)** """)
 
 fig = go.Figure()
 trace = go.Scatter(x=UMAP.embedding_[:, 0], y=UMAP.embedding_[:, 1], mode='text',  text=hover_data['label'])
